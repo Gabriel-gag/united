@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# UniTED: A Unified Time Series Event Detection Repository (UniTED) powered by DAL
+# UniTED: A Unified Time Series Event Detection Repository powered by DAL
 
 <!-- badges: start -->
 

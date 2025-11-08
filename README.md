@@ -93,7 +93,11 @@ in `R/data.R`. To reproduce data, run the numbered scripts inside
 
 ## References
 
-- Chandola, V., Banerjee, A., & Kumar, V. (2009). Anomaly detection: A
+- Lima, J., Castro, H., Oliveira, L., Paixão, E., Baroni, L., Salles, R., 
+  Vargas, R., Ogasawara, E. UniTED: A Unified Time Series 
+  Event Detection Repository. Brazilian e-Science Workshop (BreSci). 
+  In: Brazilian e-Science Workshop (BreSci). SBC, DOI: 10.5753/bresci.2025.247972. 
+Chandola, V., Banerjee, A., & Kumar, V. (2009). Anomaly detection: A
   survey. ACM Computing Surveys, 41(3), 1–58.
 - Truong, C., Oudre, L., & Vayatis, N. (2020). Selective review of
   change point detection methods. Signal Processing, 167, 107299.

@@ -1,6 +1,6 @@
 Package: united
 Title: A Unified Event Detection Dataset powered by DAL
-Version: 1.0.717
+Version: 1.1.707
 License: MIT + file LICENSE
 Authors@R: 
   c(

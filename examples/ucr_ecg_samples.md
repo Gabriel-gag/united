@@ -86,7 +86,7 @@ print(detection |> dplyr::filter(event == TRUE))
 
 ```
 ##     idx event    type
-## 1 17025  TRUE anomaly
+## 1 17024  TRUE anomaly
 ```
 
 Visual analysis
@@ -133,7 +133,7 @@ print(ev_soft$accuracy)
 ```
 
 ```
-## [1] 0.9999583
+## [1] 0.9999587
 ```
 
 ``` r
@@ -141,7 +141,7 @@ print(ev_soft$F1)
 ```
 
 ```
-## [1] 0.375
+## [1] 0.38
 ```
 
 ## References

@@ -1,11 +1,15 @@
-##---------------------------------------------------------------
-## RARE: a labeled dataset for cloud-native memory anomalies
-## Multivariate series with labeled anomalies
-## Recommended use: multivariate or univariate event detection
-## WARNING: Example under construction.
-##      This dataset is under our analysis for better
-##      organization and suggested use.
-##---------------------------------------------------------------
+"""
+#' @title RARE — Cloud‑Native Memory Anomalies Example (WIP)
+#' @description Exploratory example for the RARE dataset with multivariate
+#'     metrics from cloud environments. Demonstrates simple anomaly detection
+#'     workflow, timing, and metric reporting. This dataset is under
+#'     analysis — schema and best practices may evolve.
+#' @references Chandola, V., Banerjee, A., & Kumar, V. (2009). Anomaly detection:
+#'     A survey. ACM Computing Surveys, 41(3), 1–58.
+#' @examples
+#' # Run step‑by‑step to reproduce the experiment.
+"""
+## RARE — exploratory anomaly detection example (work in progress)
 library(united)
 library(daltoolbox)
 library(harbinger)
@@ -14,7 +18,7 @@ library(harbinger)
 ## Load series ----------------------
 data(rare)
 
-#RARE dataset content analysis ----------------------
+# RARE dataset content analysis ----------------------
 plot(as.ts(rare[,1:10]))
 plot(as.ts(rare[,11:20])) #Flat
 plot(as.ts(rare[,21:30])) #Flat
@@ -31,7 +35,7 @@ plot(as.ts(rare[,89]))
 plot(as.ts(rare[,90]))
 
 
-#Series selection ----------------------
+# Series selection ----------------------
 series <- rare[2]
 plot(as.ts(series))
 
@@ -43,52 +47,50 @@ plot(as.ts(series))
 
 
 ## Event detection experiment ----------------------
-#Experiments results organization
-experiment <- data.frame(method="hanr_arima",
-                         dataset="RARE",
-                         series="kube_pod_status_ready_0",
-                         elapsed_time_fit=0,
-                         elapsed_time_detection=0,
-                         accuracy=0,
-                         precision=0,
-                         recall=0,
-                         F1=0)
+# Experiments results organization
+experiment <- data.frame(method = "hanr_arima",
+                         dataset = "RARE",
+                         series = "kube_pod_status_ready_0",
+                         elapsed_time_fit = 0,
+                         elapsed_time_detection = 0,
+                         accuracy = 0,
+                         precision = 0,
+                         recall = 0,
+                         F1 = 0)
 
 head(experiment)
 
-#Detection steps
-#Establishing arima method
+# Define ARIMA‑based detector
 model <- hanr_arima()
 
-#Fitting the model
-s <- Sys.time()
+# Fit the model and time the operation (seconds)
+t0 <- Sys.time()
 model <- fit(model, series$value)
-t_fit <- Sys.time()-s
+t_fit <- difftime(Sys.time(), t0, units = "secs")
 
-#Making detections
-s <- Sys.time()
+# Make detections and time the operation (seconds)
+t1 <- Sys.time()
 detection <- detect(model, series$value)
-t_det <- Sys.time()-s
+t_det <- difftime(Sys.time(), t1, units = "secs")
 
 
 # Results analysis ----------------------
-#Filtering detected events
-print(detection |> dplyr::filter(event==TRUE))
+# Filtering detected events
+print(detection |> dplyr::filter(event == TRUE))
 
-#Ploting the results
+# Plot detections against labels
 grf <- har_plot(model, series$value, detection, series$event)
 plot(grf)
 
-#Evaluating the detection metrics
+# Evaluate detection metrics
 ev <- evaluate(model, detection$event, series$event)
 print(ev$confMatrix)
 
 ## Experiment update ----------------------
-#Time
-#Experiment update
-experiment$elapsed_time_fit[1] <- as.numeric(t_fit)*60
-experiment$elapsed_time_detection[1] <- as.numeric(t_det)*60
-#Metrics
+# Update experiment table
+experiment$elapsed_time_fit[1] <- as.numeric(t_fit)
+experiment$elapsed_time_detection[1] <- as.numeric(t_det)
+# Metrics
 experiment$accuracy[1] <- ev$accuracy
 experiment$precision[1] <- ev$precision
 experiment$recall[1] <- ev$recall

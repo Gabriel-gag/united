@@ -1,3 +1,12 @@
+"""
+#' @title 3W — Label Adjustment and Sanity Checks (Type 1)
+#' @description Developer script to explore 3W Type 1 series and reconstruct
+#'     change point (CP) labels based on class transitions. Intended for
+#'     interactive sanity checks and reproducibility notes.
+#' @references Truong, C., Oudre, L., & Vayatis, N. (2020). Selective review of
+#'     change point detection methods. Signal Processing, 167, 107299.
+#' @keywords internal
+"""
 library(united)
 library(harbinger)
 library(daltoolbox)
@@ -57,7 +66,7 @@ plot(as.ts(labels))
 oil_3w_Type_1$Type_1$`WELL-00001_20140124213136`$cpd <- labels$cpd
 
 summary(oil_3w_Type_1$Type_1$`WELL-00001_20140124213136`)
-oil_3w_Type_1$Type_1$`WELL-00001_20140124213136`$ T_JUS_CKGL <- NULL
+oil_3w_Type_1$Type_1$`WELL-00001_20140124213136`$T_JUS_CKGL <- NULL
 
 summary(oil_3w_Type_1$Type_1$`WELL-00001_20140124213136`)
 plot(as.ts(oil_3w_Type_1$Type_1$`WELL-00001_20140124213136`))

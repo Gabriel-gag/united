@@ -1,8 +1,14 @@
-##---------------------------------------------------------------
-## UCR Anomaly Archive
-## Univariate series with labeled anomalies
-## Recommended use: univariate event detection
-##---------------------------------------------------------------
+"""
+#' @title UCR Anomaly Archive — ECG Example
+#' @description Demonstration script for univariate anomaly detection on an ECG
+#'     series from the UCR Anomaly Archive. It covers loading data, simple
+#'     preprocessing, model training, detection, visualization, and evaluation.
+#' @references Chandola, V., Banerjee, A., & Kumar, V. (2009). Anomaly detection:
+#'     A survey. ACM Computing Surveys, 41(3), 1–58.
+#' @examples
+#' # Run step‑by‑step to reproduce the experiment.
+"""
+## UCR Anomaly Archive — univariate anomaly detection example
 
 library(united)
 library(daltoolbox)
@@ -15,15 +21,13 @@ data(ucr_ecg)
 
 
 ## Univariate series selection ----------------------
-#Selecting
-for (i in 1:length(ucr_ecg)){
-  plot(as.ts(ucr_ecg[[i]]),
-       main=paste("UCR", i))
+# Inspect a few series and pick one
+for (i in 1:length(ucr_ecg)) {
+  plot(as.ts(ucr_ecg[[i]]), main = paste("UCR", i))
 }
 
-
+# Select a representative series
 series <- ucr_ecg[[3]]
-
 plot(as.ts(series))
 
 
@@ -35,16 +39,15 @@ plot(as.ts(series))
 #names(series) <- c("value", "event")
 #plot(as.ts(series))
 
-#Sample
-#Test: 2500
-start = 5000
+# Train/test split cutoff
+train_cutoff <- 5000
 
 
-train <- series[1:start,]
+train <- series[1:train_cutoff, ]
 plot(as.ts(train))
 
 
-test <- series[(start+1):nrow(series),]
+test <- series[(train_cutoff + 1):nrow(series), ]
 plot(as.ts(test))
 
 ## Preprocessing ----------------------
@@ -56,48 +59,38 @@ head(series)
 plot(as.ts(series))
 
 ## Event detection experiment ----------------------
-#Detection steps
-#Establishing arima method
-model <- hanr_arima()
-model <- hanr_fbiad()
-model <- hanr_remd()
+# Define a detector (choose one)
+# model <- hanr_arima()
+# model <- hanr_fbiad()
+# model <- hanr_remd()
 model <- han_autoencoder(3, 2, autoenc_ed, num_epochs = 1500)
 
 #Fitting the model
-#model <- fit(model, series$value)
 model <- fit(model, train$value)
 
 
 #Making detections
-detection <- detect(model, series$value)
+# Detect anomalies on full series or test subset
 detection <- detect(model, test$value)
 
 
 # Results analysis ----------------------
 #Filtering detected events
-print(detection |> dplyr::filter(event==TRUE))
+print(detection |> dplyr::filter(event == TRUE))
 
 #Ploting the results
-grf <- har_plot(model, series$value, detection, series$event) #Complete series
-grf <- har_plot(model, test$value, detection, test$event) #Test sample
+# Plot detections against labels (test subset)
+grf <- har_plot(model, test$value, detection, test$event)
 plot(grf)
 
 #Evaluating the detection metrics
-#Complete series
-ev <- evaluate(model, detection$event, series$event)
-
-#Complete series
 ev <- evaluate(model, detection$event, test$event)
 print(ev$confMatrix)
 
 
-#SoftEd Evaluation
-s=200
-#Complete series
-ev_soft <- evaluate(har_eval_soft(sw=s), detection$event, series$event)
-
-#Test sample
-ev_soft <- evaluate(har_eval_soft(sw=s), detection$event, test$event)
+# Soft evaluation with temporal tolerance
+sw <- 200
+ev_soft <- evaluate(har_eval_soft(sw = sw), detection$event, test$event)
 print(ev_soft$confMatrix)
 
 print(ev_soft$accuracy)

@@ -1,64 +1,72 @@
 #' @name gecco
-#' @title Gecco Challenge 2018
-#' @description Data collection for water quality monitoring.
-#'     Data Type:	Water quality. Category:	Environment. Creation Date	2018.
-#'     See \href{https://github.com/cefet-rj-dal/united}{cefet-rj-dal/united}
-#'     for detailed guidance on using this package and the other datasets available in it.
-#'     Labels available? Yes
+#' @title GECCO Challenge 2018 – Water Quality Time Series
+#' @description Benchmark time series for water quality monitoring composed of
+#'     multiple sensors and an associated binary event label. This dataset
+#'     supports research in anomaly and event detection for environmental data
+#'     streams. See \href{https://github.com/cefet-rj-dal/united}{cefet-rj-dal/united}
+#'     for usage guidance and links to the preprocessing steps used to build the
+#'     package-ready object. Labels available: Yes.
 #' @docType data
 #' @usage data(gecco)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references Genetic and Evolutionary Computation Conference (Gecco), Association for Computing Machinery (ACM)
+#' @references Genetic and Evolutionary Computation Conference (GECCO), Association for Computing Machinery (ACM).
+#'     See also: Chandola, V., Banerjee, A., & Kumar, V. (2009). Anomaly detection:
+#'     A survey. ACM Computing Surveys, 41(3), 1–58.
 #' @source \href{https://www.spotseven.de/gecco/gecco-challenge/}{Gecco Challenge 2018}
 #' @examples
 #' data(gecco)
-#' serie <- gecco[[1]]
+#' # Select the first univariate series and inspect
+#' series <- gecco[[1]]
+#' summary(series$value)
+#' # Plot values with event markers
+#' plot(ts(series$value), main = names(gecco)[1], ylab = "value")
 "gecco"
 
 
 #' @name A1Benchmark
-#' @title A1Benchmark
-#' @description S5 - A Labeled Anomaly Detection Dataset.
-#'     Data Type:	Benchmark A1. Category:	Real data. Creation Date	2021.
-#'     See Yahoo Sandbox Webscope for detailed information of the dataset.
-#'     Labels available? Yes
+#' @title Yahoo Webscope S5 – A1 Benchmark (Real)
+#' @description Part of the Yahoo Webscope S5 labeled anomaly detection dataset.
+#'     A1 contains real-world time series with binary anomaly labels. Useful for
+#'     evaluating anomaly detection methods on real traffic-like data. Labels
+#'     available: Yes.
 #' @docType data
 #' @usage data(A1Benchmark)
 #' @format A list of time series.
 #' @keywords datasets
 #' @references Yoshihara K, Takahashi K (2022) A simple method for unsupervised anomaly detection: An application to Web time series data. PLoS ONE 17(1).
 #' @source \doi{10.1371/journal.pone.0262463}
+#' @references Chandola, V., Banerjee, A., & Kumar, V. (2009). Anomaly detection: A survey. ACM Computing Surveys, 41(3), 1–58.
 #' @examples
 #' data(A1Benchmark)
-#' serie <- A1Benchmark[[1]]
+#' # Access the first series and visualize
+#' s <- A1Benchmark[[1]]
+#' plot(ts(s$value), main = names(A1Benchmark)[1], ylab = "value")
+#' mean(s$event)  # proportion of labeled anomalies
 "A1Benchmark"
 
 #' @name A2Benchmark
-#' @title A2Benchmark
-#' @description S5 - A Labeled Anomaly Detection Dataset.
-#'     Data Type:	Benchmark A2. Category:	Synthetic data. Creation Date	2021.
-#'     See Yahoo Sandbox Webscope for detailed information of the dataset.
-#'     for detailed guidance on using this package and the other datasets available in it.
-#'     Labels available? Yes
+#' @title Yahoo Webscope S5 – A2 Benchmark (Synthetic)
+#' @description Part of the Yahoo Webscope S5 dataset. A2 contains synthetic
+#'     time series with labeled anomalies designed to stress-test algorithms.
+#'     Labels available: Yes.
 #' @docType data
 #' @usage data(A2Benchmark)
 #' @format A list of time series.
 #' @keywords datasets
 #' @references Yoshihara K, Takahashi K (2022) A simple method for unsupervised anomaly detection: An application to Web time series data. PLoS ONE 17(1).
 #' @source \doi{10.1371/journal.pone.0262463}
+#' @references Chandola, V., Banerjee, A., & Kumar, V. (2009). Anomaly detection: A survey. ACM Computing Surveys, 41(3), 1–58.
 #' @examples
 #' data(A2Benchmark)
-#' serie <- A2Benchmark[[1]]
+#' s <- A2Benchmark[[1]]
+#' summary(s$value)
 "A2Benchmark"
 
 #' @name A3Benchmark
-#' @title A3Benchmark
-#' @description S5 - A Labeled Anomaly Detection Dataset.
-#'     Data Type:	Benchmark A3. Category:	Synthetic data with outliers. Creation Date	2021.
-#'     See Yahoo Sandbox Webscope for detailed information of the dataset.
-#'     for detailed guidance on using this package and the other datasets available in it.
-#'     Labels available? Yes
+#' @title Yahoo Webscope S5 – A3 Benchmark (Synthetic with Outliers)
+#' @description Part of the Yahoo Webscope S5 dataset. A3 contains synthetic
+#'     time series with labeled outliers/anomalies. Labels available: Yes.
 #' @docType data
 #' @usage data(A3Benchmark)
 #' @format A list of time series.
@@ -69,32 +77,32 @@
 #' @examples
 #' library(harbinger)
 #' data(A3Benchmark)
-#' serie <- A3Benchmark[[1]]
-#' har_plot(harbinger(), serie$value)
+#' s <- A3Benchmark[[1]]
+#' # Quick visualization with harbinger
+#' har_plot(harbinger(), s$value)
 "A3Benchmark"
 
 #' @name A4Benchmark
-#' @title A4Benchmark
-#' @description S5 - A Labeled Anomaly Detection Dataset.
-#'     Data Type:	Benchmark A3. Category:	Synthetic data with anomalies and change points. Creation Date	2021.
-#'     See Yahoo Sandbox Webscope for detailed information of the dataset.
-#'     for detailed guidance on using this package and the other datasets available in it.
-#'     Labels available? Yes
+#' @title Yahoo Webscope S5 – A4 Benchmark (Synthetic with Anomalies and CPs)
+#' @description Part of the Yahoo Webscope S5 dataset. A4 contains synthetic
+#'     time series with labeled anomalies and change points. Labels available: Yes.
 #' @docType data
 #' @usage data(A4Benchmark)
 #' @format A list of time series.
 #' @keywords datasets
 #' @references Yoshihara K, Takahashi K (2022) A simple method for unsupervised anomaly detection: An application to Web time series data. PLoS ONE 17(1).
 #' @source \doi{10.1371/journal.pone.0262463}
+#' @references Truong, C., Oudre, L., & Vayatis, N. (2020). Selective review of change point detection methods. Signal Processing, 167, 107299.
 #' @examples
 #' data(A4Benchmark)
-#' serie <- A4Benchmark[[1]]
+#' s <- A4Benchmark[[1]]
+#' mean(s$event)  # proportion of anomalous or change-point timestamps
 "A4Benchmark"
 
 #' @name oil_3w_Type_1
-#' @title Oil wells dataset - Type 1
+#' @title Oil Wells Dataset – Type 1
 #' @description
-#' Firts realistic dataset with real events in oil well drilling. The data available
+#' First realistic dataset with real events in oil well drilling. The data available
 #'     in this package consist of time series already analyzed and applied in
 #'     research experiments by the DAL group (Data Analytics Lab). The series are
 #'     divided into 7 groups (Type_0, Type_1, Type_2, Type_4, Type_5, Type_6, Type_7 and Type_8).
@@ -107,17 +115,19 @@
 #' @usage data(oil_3w_Type_1)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references 3W dataset Data Set
+#' @references 3W dataset (UCI repository). See also: Truong, C., Oudre, L., & Vayatis, N. (2020).
+#'     Selective review of change point detection methods. Signal Processing, 167, 107299.
 #' @source \href{https://archive.ics.uci.edu/ml/datasets/3W+dataset}{UCI Machine Learning Repository}
 #' @examples
 #' data(oil_3w_Type_1)
-#' serie <- oil_3w_Type_1[[1]]
+#' s <- oil_3w_Type_1[[1]]
+#' plot(ts(s$value), main = names(oil_3w_Type_1)[1], ylab = "value")
 "oil_3w_Type_1"
 
 #' @name oil_3w_Type_2
-#' @title Oil wells dataset - Type 2
+#' @title Oil Wells Dataset – Type 2
 #' @description
-#' Firts realistic dataset with real events in oil well drilling. The data available
+#' First realistic dataset with real events in oil well drilling. The data available
 #'     in this package consist of time series already analyzed and applied in
 #'     research experiments by the DAL group (Data Analytics Lab). The series are
 #'     divided into 7 groups (Type_0, Type_1, Type_2, Type_4, Type_5, Type_6, Type_7 and Type_8).
@@ -129,17 +139,19 @@
 #' @usage data(oil_3w_Type_2)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references 3W dataset Data Set
+#' @references 3W dataset (UCI repository). See also: Truong, C., Oudre, L., & Vayatis, N. (2020).
+#'     Selective review of change point detection methods. Signal Processing, 167, 107299.
 #' @source \href{https://archive.ics.uci.edu/ml/datasets/3W+dataset}{UCI Machine Learning Repository}
 #' @examples
 #' data(oil_3w_Type_2)
-#' serie <- oil_3w_Type_2[[1]]
+#' s <- oil_3w_Type_2[[1]]
+#' mean(s$event)  # proportion of change points
 "oil_3w_Type_2"
 
 #' @name oil_3w_Type_4
-#' @title Oil wells dataset - Type 4
+#' @title Oil Wells Dataset – Type 4
 #' @description
-#' Firts realistic dataset with real events in oil well drilling. The data available
+#' First realistic dataset with real events in oil well drilling. The data available
 #'     in this package consist of time series already analyzed and applied in
 #'     research experiments by the DAL group (Data Analytics Lab). The series are
 #'     divided into 7 groups (Type_0, Type_1, Type_2, Type_4, Type_5, Type_6, Type_7 and Type_8).
@@ -151,7 +163,8 @@
 #' @usage data(oil_3w_Type_4)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references 3W dataset Data Set
+#' @references 3W dataset (UCI repository). See also: Truong, C., Oudre, L., & Vayatis, N. (2020).
+#'     Selective review of change point detection methods. Signal Processing, 167, 107299.
 #' @source \href{https://archive.ics.uci.edu/ml/datasets/3W+dataset}{UCI Machine Learning Repository}
 #' @examples
 #' data(oil_3w_Type_4)
@@ -159,9 +172,9 @@
 "oil_3w_Type_4"
 
 #' @name oil_3w_Type_5
-#' @title Oil wells dataset - Type 5
+#' @title Oil Wells Dataset – Type 5
 #' @description
-#' Firts realistic dataset with real events in oil well drilling. The data available
+#' First realistic dataset with real events in oil well drilling. The data available
 #'     in this package consist of time series already analyzed and applied in
 #'     research experiments by the DAL group (Data Analytics Lab). The series are
 #'     divided into 7 groups (Type_0, Type_1, Type_2, Type_4, Type_5, Type_6, Type_7 and Type_8).
@@ -173,7 +186,8 @@
 #' @usage data(oil_3w_Type_5)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references 3W dataset Data Set
+#' @references 3W dataset (UCI repository). See also: Truong, C., Oudre, L., & Vayatis, N. (2020).
+#'     Selective review of change point detection methods. Signal Processing, 167, 107299.
 #' @source \href{https://archive.ics.uci.edu/ml/datasets/3W+dataset}{UCI Machine Learning Repository}
 #' @examples
 #' data(oil_3w_Type_5)
@@ -181,9 +195,9 @@
 "oil_3w_Type_5"
 
 #' @name oil_3w_Type_6
-#' @title Oil wells dataset - Type 6
+#' @title Oil Wells Dataset – Type 6
 #' @description
-#' Firts realistic dataset with real events in oil well drilling. The data available
+#' First realistic dataset with real events in oil well drilling. The data available
 #'     in this package consist of time series already analyzed and applied in
 #'     research experiments by the DAL group (Data Analytics Lab). The series are
 #'     divided into 7 groups (Type_0, Type_1, Type_2, Type_4, Type_5, Type_6, Type_7 and Type_8).
@@ -195,7 +209,8 @@
 #' @usage data(oil_3w_Type_6)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references 3W dataset Data Set
+#' @references 3W dataset (UCI repository). See also: Truong, C., Oudre, L., & Vayatis, N. (2020).
+#'     Selective review of change point detection methods. Signal Processing, 167, 107299.
 #' @source \href{https://archive.ics.uci.edu/ml/datasets/3W+dataset}{UCI Machine Learning Repository}
 #' @examples
 #' data(oil_3w_Type_6)
@@ -203,9 +218,9 @@
 "oil_3w_Type_6"
 
 #' @name oil_3w_Type_7
-#' @title Oil wells dataset - Type 7
+#' @title Oil Wells Dataset – Type 7
 #' @description
-#' Firts realistic dataset with real events in oil well drilling. The data available
+#' First realistic dataset with real events in oil well drilling. The data available
 #'     in this package consist of time series already analyzed and applied in
 #'     research experiments by the DAL group (Data Analytics Lab). The series are
 #'     divided into 7 groups (Type_0, Type_1, Type_2, Type_4, Type_5, Type_6, Type_7 and Type_8).
@@ -217,7 +232,8 @@
 #' @usage data(oil_3w_Type_7)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references 3W dataset Data Set
+#' @references 3W dataset (UCI repository). See also: Truong, C., Oudre, L., & Vayatis, N. (2020).
+#'     Selective review of change point detection methods. Signal Processing, 167, 107299.
 #' @source \href{https://archive.ics.uci.edu/ml/datasets/3W+dataset}{UCI Machine Learning Repository}
 #' @examples
 #' data(oil_3w_Type_7)
@@ -225,9 +241,9 @@
 "oil_3w_Type_7"
 
 #' @name oil_3w_Type_8
-#' @title Oil wells dataset - Type 8
+#' @title Oil Wells Dataset – Type 8
 #' @description
-#' Firts realistic dataset with real events in oil well drilling. The data available
+#' First realistic dataset with real events in oil well drilling. The data available
 #'     in this package consist of time series already analyzed and applied in
 #'     research experiments by the DAL group (Data Analytics Lab). The series are
 #'     divided into 7 groups (Type_0, Type_1, Type_2, Type_4, Type_5, Type_6, Type_7 and Type_8).
@@ -239,7 +255,8 @@
 #' @usage data(oil_3w_Type_8)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references 3W dataset Data Set
+#' @references 3W dataset (UCI repository). See also: Truong, C., Oudre, L., & Vayatis, N. (2020).
+#'     Selective review of change point detection methods. Signal Processing, 167, 107299.
 #' @source \href{https://archive.ics.uci.edu/ml/datasets/3W+dataset}{UCI Machine Learning Repository}
 #' @examples
 #' data(oil_3w_Type_8)
@@ -247,14 +264,10 @@
 "oil_3w_Type_8"
 
 #' @name nab_artificialWithAnomaly
-#' @title Numenta Anomaly Benchmark (NAB) artificialWithAnomaly
-#' @description
-#' Data collection with real-world time-series.
-#'     Artificial data with anomalies
-#'     As part of the Numenta Anomaly Benchmark (NAB), this dataset contains
-#'     time series with real and synthetic data. The real data comes from network
-#'     monitoring and cloud computing. On the other hand, synthetic data simulate
-#'     series with or without anomalies.
+#' @title Numenta Anomaly Benchmark (NAB) – artificialWithAnomaly
+#' @description Synthetic time series with injected anomalies from the Numenta
+#'     Anomaly Benchmark (NAB). Designed for evaluating anomaly detection
+#'     algorithms under controlled conditions. Labels available: Yes.
 #'     See \href{https://github.com/cefet-rj-dal/united}{cefet-rj-dal/united}
 #'     for detailed guidance on using this package and the other datasets available in it.
 #'     Labels available? Yes
@@ -262,23 +275,21 @@
 #' @usage data(nab_artificialWithAnomaly)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references Numenta
+#' @references Lavin, A., & Ahmad, S. (2015). Evaluating real-time anomaly
+#'     detection algorithms – the Numenta Anomaly Benchmark. 2015 IEEE 14th
+#'     International Conference on Machine Learning and Applications (ICMLA).
 #' @source \href{https://github.com/numenta/NAB/tree/master/data}{Numenta Anomaly Benchmark (NAB) Dataset}
 #' @examples
 #' data(nab_artificialWithAnomaly)
-#' data <- nab_artificialWithAnomaly[[1]]
-#' series <- data$value
+#' s <- nab_artificialWithAnomaly[[1]]
+#' plot(ts(s$value), main = names(nab_artificialWithAnomaly)[1])
 "nab_artificialWithAnomaly"
 
 #' @name nab_realAdExchange
-#' @title Numenta Anomaly Benchmark (NAB) realAdExchange
-#' @description
-#' Data collection with real-world time-series.
-#'     Real data with anomalies
-#'     As part of the Numenta Anomaly Benchmark (NAB), this dataset contains
-#'     time series with real and synthetic data. The real data comes from network
-#'     monitoring and cloud computing. On the other hand, synthetic data simulate
-#'     series with or without anomalies.
+#' @title Numenta Anomaly Benchmark (NAB) – realAdExchange
+#' @description Real-world time series with labeled anomalies from ad exchange
+#'     data (NAB). Useful for evaluating detection methods on operational data.
+#'     Labels available: Yes.
 #'     See \href{https://github.com/cefet-rj-dal/united}{cefet-rj-dal/united}
 #'     for detailed guidance on using this package and the other datasets available in it.
 #'     Labels available? Yes
@@ -286,16 +297,18 @@
 #' @usage data(nab_realAdExchange)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references Numenta
+#' @references Lavin, A., & Ahmad, S. (2015). Evaluating real-time anomaly
+#'     detection algorithms – the Numenta Anomaly Benchmark. 2015 IEEE 14th
+#'     International Conference on Machine Learning and Applications (ICMLA).
 #' @source \href{https://github.com/numenta/NAB/tree/master/data}{Numenta Anomaly Benchmark (NAB) Dataset}
 #' @examples
 #' data(nab_realAdExchange)
-#' data <- nab_realAdExchange[[1]]
-#' series <- data$value
+#' s <- nab_realAdExchange[[1]]
+#' mean(s$event)
 "nab_realAdExchange"
 
 #' @name nab_realAWSCloudwatch
-#' @title Numenta Anomaly Benchmark (NAB) realAdExchange
+#' @title Numenta Anomaly Benchmark (NAB) realAWSCloudwatch
 #' @description
 #' Data collection with real-world time-series.
 #'     Real data from AWS Cloud with anomalies
@@ -310,7 +323,9 @@
 #' @usage data(nab_realAWSCloudwatch)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references Numenta
+#' @references Lavin, A., & Ahmad, S. (2015). Evaluating real-time anomaly
+#'     detection algorithms – the Numenta Anomaly Benchmark. 2015 IEEE 14th
+#'     International Conference on Machine Learning and Applications (ICMLA).
 #' @source \href{https://github.com/numenta/NAB/tree/master/data}{Numenta Anomaly Benchmark (NAB) Dataset}
 #' @examples
 #' data(nab_realAWSCloudwatch)
@@ -334,7 +349,9 @@
 #' @usage data(nab_realKnownCause)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references Numenta
+#' @references Lavin, A., & Ahmad, S. (2015). Evaluating real-time anomaly
+#'     detection algorithms – the Numenta Anomaly Benchmark. 2015 IEEE 14th
+#'     International Conference on Machine Learning and Applications (ICMLA).
 #' @source \href{https://github.com/numenta/NAB/tree/master/data}{Numenta Anomaly Benchmark (NAB) Dataset}
 #' @examples
 #' data(nab_realKnownCause)
@@ -358,7 +375,9 @@
 #' @usage data(nab_realTraffic)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references Numenta
+#' @references Lavin, A., & Ahmad, S. (2015). Evaluating real-time anomaly
+#'     detection algorithms – the Numenta Anomaly Benchmark. 2015 IEEE 14th
+#'     International Conference on Machine Learning and Applications (ICMLA).
 #' @source \href{https://github.com/numenta/NAB/tree/master/data}{Numenta Anomaly Benchmark (NAB) Dataset}
 #' @examples
 #' data(nab_realTraffic)
@@ -367,14 +386,9 @@
 "nab_realTraffic"
 
 #' @name nab_realTweets
-#' @title Numenta Anomaly Benchmark (NAB) realTraffic
-#' @description
-#' Data collection with real-world time-series.
-#'     Real data from Tweets with anomalies
-#'     As part of the Numenta Anomaly Benchmark (NAB), this dataset contains
-#'     time series with real and synthetic data. The real data comes from network
-#'     monitoring and cloud computing. On the other hand, synthetic data simulate
-#'     series with or without anomalies.
+#' @title Numenta Anomaly Benchmark (NAB) realTweets
+#' @description Real-world time series with labeled anomalies from Twitter
+#'     volumes (NAB). Labels available: Yes.
 #'     See \href{https://github.com/cefet-rj-dal/united}{cefet-rj-dal/united}
 #'     for detailed guidance on using this package and the other datasets available in it.
 #'     Labels available? Yes
@@ -382,19 +396,22 @@
 #' @usage data(nab_realTweets)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references Numenta
+#' @references Lavin, A., & Ahmad, S. (2015). Evaluating real-time anomaly
+#'     detection algorithms – the Numenta Anomaly Benchmark. 2015 IEEE 14th
+#'     International Conference on Machine Learning and Applications (ICMLA).
 #' @source \href{https://github.com/numenta/NAB/tree/master/data}{Numenta Anomaly Benchmark (NAB) Dataset}
 #' @examples
 #' data(nab_realTweets)
-#' nab_grp <- nab_realTweets[[1]]
-#' serie <- nab_grp[[1]]
+#' s <- nab_realTweets[[1]]
+#' plot(ts(s$value), main = names(nab_realTweets)[1])
+#' mean(s$event)
 "nab_realTweets"
 
 #' @name ucr_ecg
-#' @title UCR Anomaly Benchmark - ECG series
+#' @title UCR Anomaly Archive – ECG
 #' @description
 #' Data collection with real-world time-series.
-#'     Real data from ECG data
+#'     Real ECG time series with labeled anomalous intervals.
 #'     See \href{https://github.com/cefet-rj-dal/united}{cefet-rj-dal/united}
 #'     for detailed guidance on using this package and the other datasets available in it.
 #'     Labels available? Yes
@@ -402,19 +419,21 @@
 #' @usage data(ucr_ecg)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references UCR Anomaly Archive
-#' @source \href{https://paperswithcode.com/dataset/ucr-anomaly-archive/}{UCI Anomaly Archive}
+#' @references UCR Time Series Anomaly Archive. See also: Chandola, V., Banerjee, A., & Kumar, V. (2009).
+#'     Anomaly detection: A survey. ACM Computing Surveys, 41(3), 1–58.
+#' @source \href{https://paperswithcode.com/dataset/ucr-anomaly-archive/}{UCR Anomaly Archive}
 #' @examples
 #' data(ucr_ecg)
-#' data <- ucr_ecg[[1]]
-#' series <- data$value
+#' # Access and plot a series
+#' s <- ucr_ecg[[1]]
+#' plot(ts(s$value), main = names(ucr_ecg)[1])
 "ucr_ecg"
 
 #' @name ucr_nasa
-#' @title UCR Anomaly Benchmark - NASA spacecraft series
+#' @title UCR Anomaly Archive – NASA Spacecraft
 #' @description
 #' Data collection with real-world time-series.
-#'     Real data from NASA Spacecraft Monitoring Data
+#'     Real NASA spacecraft monitoring time series with labeled anomalous intervals.
 #'     See \href{https://github.com/cefet-rj-dal/united}{cefet-rj-dal/united}
 #'     for detailed guidance on using this package and the other datasets available in it.
 #'     Labels available? Yes
@@ -422,19 +441,20 @@
 #' @usage data(ucr_nasa)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references UCR Anomaly Archive
-#' @source \href{https://paperswithcode.com/dataset/ucr-anomaly-archive/}{UCI Anomaly Archive}
+#' @references UCR Time Series Anomaly Archive. See also: Chandola, V., Banerjee, A., & Kumar, V. (2009).
+#'     Anomaly detection: A survey. ACM Computing Surveys, 41(3), 1–58.
+#' @source \href{https://paperswithcode.com/dataset/ucr-anomaly-archive/}{UCR Anomaly Archive}
 #' @examples
 #' data(ucr_nasa)
-#' data <- ucr_nasa[[1]]
-#' series <- data$value
+#' s <- ucr_nasa[[1]]
+#' mean(s$event)
 "ucr_nasa"
 
 #' @name ucr_int_bleeding
-#' @title UCR Anomaly Benchmark - Internal Bleeding series
+#' @title UCR Anomaly Archive – Internal Bleeding
 #' @description
 #' Data collection with real-world time-series.
-#'     Real data from Internal Bleeding Monitoring Data
+#'     Real physiological time series with labeled anomalous intervals.
 #'     See \href{https://github.com/cefet-rj-dal/united}{cefet-rj-dal/united}
 #'     for detailed guidance on using this package and the other datasets available in it.
 #'     Labels available? Yes
@@ -442,19 +462,20 @@
 #' @usage data(ucr_int_bleeding)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references UCR Anomaly Archive
-#' @source \href{https://paperswithcode.com/dataset/ucr-anomaly-archive/}{UCI Anomaly Archive}
+#' @references UCR Time Series Anomaly Archive. See also: Chandola, V., Banerjee, A., & Kumar, V. (2009).
+#'     Anomaly detection: A survey. ACM Computing Surveys, 41(3), 1–58.
+#' @source \href{https://paperswithcode.com/dataset/ucr-anomaly-archive/}{UCR Anomaly Archive}
 #' @examples
 #' data(ucr_int_bleeding)
-#' data <- ucr_int_bleeding[[1]]
-#' series <- data$value
+#' s <- ucr_int_bleeding[[1]]
+#' plot(ts(s$value))
 "ucr_int_bleeding"
 
 #' @name ucr_power_demand
-#' @title UCR Anomaly Benchmark - Italian Power Demand
+#' @title UCR Anomaly Archive – Italian Power Demand
 #' @description
 #' Data collection with real-world time-series.
-#'     Real data from Italian Power Demand
+#'     Real power demand time series with labeled anomalous intervals.
 #'     See \href{https://github.com/cefet-rj-dal/united}{cefet-rj-dal/united}
 #'     for detailed guidance on using this package and the other datasets available in it.
 #'     Labels available? Yes
@@ -462,17 +483,18 @@
 #' @usage data(ucr_power_demand)
 #' @format A list of time series.
 #' @keywords datasets
-#' @references UCR Anomaly Archive
-#' @source \href{https://paperswithcode.com/dataset/ucr-anomaly-archive/}{UCI Anomaly Archive}
+#' @references UCR Time Series Anomaly Archive. See also: Chandola, V., Banerjee, A., & Kumar, V. (2009).
+#'     Anomaly detection: A survey. ACM Computing Surveys, 41(3), 1–58.
+#' @source \href{https://paperswithcode.com/dataset/ucr-anomaly-archive/}{UCR Anomaly Archive}
 #' @examples
 #' data(ucr_power_demand)
-#' data <- ucr_power_demand[[1]]
-#' series <- data$value
+#' s <- ucr_power_demand[[1]]
+#' summary(s$value)
 "ucr_power_demand"
 
 
 #' @name mit_bih_MLII
-#' @title MIT-BIH Arrhythmia Database (MIT-BIH) - MLII sensor
+#' @title MIT-BIH Arrhythmia Database – MLII Lead
 #' @description
 #' Data collection with real-world time-series.
 #'     MIT-BIH Arrhythmia Database (MIT-BIH).
@@ -483,7 +505,8 @@
 #' @usage data(mit_bih_MLII)
 #' @format A list of time series from the MLII sensor of the MIT-BIH Arrhythmia Database.
 #' @keywords datasets
-#' @references MIT-BIH Arrhythmia Database (MIT-BIH)
+#' @references MIT-BIH Arrhythmia Database (MIT-BIH). See also: Moody, G. B., & Mark, R. G. (2001).
+#'     The impact of the MIT-BIH Arrhythmia Database. IEEE Engineering in Medicine and Biology Magazine, 20(3), 45–50.
 #' @source \href{https://doi.org/10.1109/51.932724}{MIT-BIH}
 #' @examples
 #' data(mit_bih_MLII)
@@ -492,7 +515,7 @@
 "mit_bih_MLII"
 
 #' @name mit_bih_V1
-#' @title MIT-BIH Arrhythmia Database (MIT-BIH) - V1 sensor
+#' @title MIT-BIH Arrhythmia Database – V1 Lead
 #' @description
 #' Data collection with real-world time-series.
 #'     MIT-BIH Arrhythmia Database (MIT-BIH).
@@ -503,7 +526,8 @@
 #' @usage data(mit_bih_V1)
 #' @format A list of time series from the V1 sensor of the MIT-BIH Arrhythmia Database.
 #' @keywords datasets
-#' @references MIT-BIH Arrhythmia Database (MIT-BIH)
+#' @references MIT-BIH Arrhythmia Database (MIT-BIH). See also: Moody, G. B., & Mark, R. G. (2001).
+#'     The impact of the MIT-BIH Arrhythmia Database. IEEE Engineering in Medicine and Biology Magazine, 20(3), 45–50.
 #' @source \href{https://doi.org/10.1109/51.932724}{MIT-BIH}
 #' @examples
 #' data(mit_bih_V1)
@@ -512,7 +536,7 @@
 "mit_bih_V1"
 
 #' @name mit_bih_V2
-#' @title MIT-BIH Arrhythmia Database (MIT-BIH) - V2 sensor
+#' @title MIT-BIH Arrhythmia Database – V2 Lead
 #' @description
 #' Data collection with real-world time-series.
 #'     MIT-BIH Arrhythmia Database (MIT-BIH).
@@ -523,7 +547,8 @@
 #' @usage data(mit_bih_V2)
 #' @format A list of time series from the V2 sensor of the MIT-BIH Arrhythmia Database.
 #' @keywords datasets
-#' @references MIT-BIH Arrhythmia Database (MIT-BIH)
+#' @references MIT-BIH Arrhythmia Database (MIT-BIH). See also: Moody, G. B., & Mark, R. G. (2001).
+#'     The impact of the MIT-BIH Arrhythmia Database. IEEE Engineering in Medicine and Biology Magazine, 20(3), 45–50.
 #' @source \href{https://doi.org/10.1109/51.932724}{MIT-BIH}
 #' @examples
 #' data(mit_bih_V2)
@@ -532,7 +557,7 @@
 "mit_bih_V2"
 
 #' @name mit_bih_V5
-#' @title MIT-BIH Arrhythmia Database (MIT-BIH) - V5 sensor
+#' @title MIT-BIH Arrhythmia Database – V5 Lead
 #' @description
 #' Data collection with real-world time-series.
 #'     MIT-BIH Arrhythmia Database (MIT-BIH).
@@ -543,7 +568,8 @@
 #' @usage data(mit_bih_V5)
 #' @format A list of time series from the V5 sensor of the MIT-BIH Arrhythmia Database.
 #' @keywords datasets
-#' @references MIT-BIH Arrhythmia Database (MIT-BIH)
+#' @references MIT-BIH Arrhythmia Database (MIT-BIH). See also: Moody, G. B., & Mark, R. G. (2001).
+#'     The impact of the MIT-BIH Arrhythmia Database. IEEE Engineering in Medicine and Biology Magazine, 20(3), 45–50.
 #' @source \href{https://doi.org/10.1109/51.932724}{MIT-BIH}
 #' @examples
 #' data(mit_bih_V5)

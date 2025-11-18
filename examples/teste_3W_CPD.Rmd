@@ -1,0 +1,115 @@
+---
+title: "3W Dataset — Oil Wells — Comparação CUSUM"
+output: html_notebook
+editor_options: 
+  chunk_output_type: inline
+---
+
+
+library(united)
+library(daltoolbox)
+library(harbinger)
+library(dplyr)
+
+
+# Carrega dataset e seleciona primeiro poço
+data(oil_3w_Type_1)
+data <- oil_3w_Type_1[[1]]
+series <- data$p_tpt
+plot(as.ts(series))
+#Pega o primeiro poço do dataset Type_1. Seleciona um sensor específico (p_tpt). Plota a série temporal (linha do sensor).
+
+
+
+# ---- Função Standard CUSUM ----
+cusumStandard <- function(values, threshold = 3){
+  posCusum <- 0
+  negCusum <- 0
+  meanValue <- mean(values)
+  detection <- rep(FALSE, length(values))
+  
+  for(i in seq_along(values)){
+    x <- values[i]
+    posCusum <- max(0, posCusum + (x - meanValue))
+    negCusum <- min(0, negCusum + (x - meanValue))
+    
+    if(posCusum > threshold | abs(negCusum) > threshold){
+      detection[i] <- TRUE
+      posCusum <- 0
+      negCusum <- 0
+    }
+  }
+  return(detection)
+}
+#Calcula o CUSUM clássico: acumula o desvio da média. posCusum acumula valores acima da média, negCusum abaixo.
+#Se ultrapassar o threshold - marca mudança (TRUE). Retorna um vetor de TRUE/FALSE indicando os pontos detectados.
+
+
+
+# ---- Função CUSUM com dois limiares ----
+cusumDoubleThreshold <- function(values, lowTC = 2, highTC = 5){
+  posCusum <- 0
+  negCusum <- 0
+  meanValue <- mean(values)
+  detection <- rep(0, length(values))  # 0 = nada, 1 = low, 2 = high
+  
+  for(i in seq_along(values)){
+    x <- values[i]
+    posCusum <- max(0, posCusum + (x - meanValue))
+    negCusum <- min(0, negCusum + (x - meanValue))
+    
+    if(posCusum > highTC | abs(negCusum) > highTC){
+      detection[i] <- 2
+      posCusum <- 0
+      negCusum <- 0
+    } else if(posCusum > lowTC | abs(negCusum) > lowTC){
+      detection[i] <- 1
+    }
+  }
+  return(detection)
+}
+#Mesma ideia do standard, mas com dois limiares: 
+#     lowTC  - detecta pequenas mudanças  
+#     highTC - detecta grandes mudanças
+
+
+
+# ---- Aplicando os métodos ----
+detection_std <- cusumStandard(series, threshold = 3)
+detection_dt  <- cusumDoubleThreshold(series, lowTC = 2, highTC = 5)
+#Detecta os pontos de mudança usando os dois métodos: 
+#     detection_std - TRUE/FALSE 
+#     detection_dt  - 0 / 1 / 2
+
+
+
+# ---- Avaliação SoftED ----
+ev_std <- evaluate(har_eval_soft(sw = 90), detection_std, data$event)
+ev_dt  <- evaluate(har_eval_soft(sw = 90), detection_dt > 0, data$event)
+#data$event - pontos de mudança reais fornecidos pelo dataset.
+#SoftED considera uma tolerância temporal (sw = 90):
+#     Se uma detecção está a até 90 amostras de um evento real, é considerada correta.
+#ev_std e ev_dt armazenam métricas:
+#     Accuracy - % de acertos gerais
+#     F1       - equilíbrio entre verdadeiros positivos e falsos positivos
+
+
+
+# ---- Resultados ----
+metrics <- data.frame(
+  Method = c("Standard CUSUM", "Double Threshold CUSUM"),
+  Accuracy = c(ev_std$accuracy, ev_dt$accuracy),
+  F1 = c(ev_std$F1, ev_dt$F1)
+)
+metrics
+#Cria uma tabela comparando Accuracy e F1 dos dois métodos.
+#F1 é a métrica mais importante, porque o dataset é muito desbalanceado (poucas mudanças vs muitos valores normais).
+
+
+
+
+# ---- Plot comparativo ----
+plot(series, type = "l", main = "CUSUM Comparison", ylab = "Sensor value")
+points(which(detection_std), series[detection_std], col = "blue", pch = 16)
+points(which(detection_dt > 0), series[detection_dt > 0], col = "red", pch = 16)
+legend("topright", legend = c("Standard", "DoubleThreshold"), col = c("blue","red"), pch=16)
